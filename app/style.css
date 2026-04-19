@@ -1,0 +1,70 @@
+/* ── Reset & base ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f2f2f7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Dark header ── */
+.header {
+  background: #1a1a2e;
+  width: 100%;
+  padding: 60px 24px 20px;
+  text-align: center;
+}
+
+.location {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.device {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+}
+
+/* ── Big temperature number ── */
+.temp-display {
+  background: #1a1a2e;
+  width: 100%;
+  padding: 8px 24px 48px;
+  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.temp-display span#temperature {
+  font-size: 88px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.unit {
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 18px;
+}
+
+/* ── Status line ── */
+#status {
+  background: #1a1a2e;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 32px;
+  font-size: 14px;
+  color: #5DCAA5;
+}

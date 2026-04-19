@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Temp Sensor</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mqtt/dist/mqtt.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="header">
+    <p class="location">My Room</p>
+    <p class="device">Raspberry Pi Sensor</p>
+  </div>
+
+  <div class="temp-display">
+    <span id="temperature">--</span>
+    <span class="unit">°C</span>
+  </div>
+
+  <p id="status">Connecting...</p>
+
+  <div class="content">
+
+    <div class="cards">
+      <div class="card">
+        <p class="card-label">Feels like</p>
+        <p class="card-value" id="feels-like">--°C</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Humidity</p>
+        <p class="card-value" id="humidity">--%</p>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <p class="chart-label">Today's temperature</p>
+      <canvas id="temp-chart" height="80"></canvas>
+    </div>
+
+    <div class="connection-bar">
+      <div>
+        <p class="card-label">Connection</p>
+        <p class="card-value" id="connection">Offline</p>
+      </div>
+      <div class="dot" id="dot"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
