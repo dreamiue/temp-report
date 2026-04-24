@@ -18,7 +18,7 @@ body {
 .header {
   background: #1a1a2e;
   width: 100%;
-  padding: 60px 24px 20px;
+  padding: 40px 24px 20px;
   text-align: center;
 }
 
@@ -39,7 +39,7 @@ body {
 .temp-display {
   background: #1a1a2e;
   width: 100%;
-  padding: 8px 24px 48px;
+  padding: 4px 24px 24px;
   text-align: center;
   display: flex;
   align-items: flex-start;
@@ -47,16 +47,16 @@ body {
 }
 
 .temp-display span#temperature {
-  font-size: 88px;
+  font-size: 72px;
   font-weight: 500;
   color: #ffffff;
   line-height: 1;
 }
 
 .unit {
-  font-size: 32px;
+  font-size: 26px;
   color: rgba(255, 255, 255, 0.6);
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 /* ── Status line ── */
@@ -64,8 +64,8 @@ body {
   background: #1a1a2e;
   width: 100%;
   text-align: center;
-  padding-bottom: 32px;
-  font-size: 14px;
+  padding-bottom: 20px;
+  font-size: 13px;
   color: #5DCAA5;
 }
 
@@ -73,13 +73,13 @@ body {
 .content {
   background: #ffffff;
   width: 100%;
-  flex: 1;
-  padding: 28px 20px;
+  flex: none;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   border-radius: 32px 32px 0 0;
-  margin-top: -24px;
+  margin-top: 0px;
 }
 
 /* ── Small cards row ── */
