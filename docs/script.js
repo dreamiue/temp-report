@@ -77,6 +77,29 @@ const chart = new Chart(ctx, {
   }
 });
 
+// ── Load historical data from GitHub on startup ──
+async function loadHistoricalData() {
+  try {
+    const res = await fetch('data.json?t=' + Date.now());
+    const json = await res.json();
+
+    const today = new Date().toISOString().split('T')[0];
+    if (json.date === today) {
+      json.readings.forEach((temp, i) => {
+        if (temp !== null) {
+          chartData.temps[i] = temp;
+        }
+      });
+      chart.update();
+      console.log('Historical data loaded!');
+    }
+  } catch (e) {
+    console.log('No historical data yet:', e);
+  }
+}
+
+loadHistoricalData();
+
 
 // ── 2. MQTT SETUP ───────────────────────────────────────────
 
@@ -152,7 +175,7 @@ function setStatus(state) {
   if (state === 'connected') {
     dot.classList.add('connected');
     conn.textContent = 'MQTT broker';
-    status.textContent = 'Connected — waiting for data...';
+    status.textContent = 'Connected — live';
   } else {
     dot.classList.remove('connected');
     conn.textContent = 'Offline';
