@@ -41,7 +41,7 @@ const chart = new Chart(ctx, {
       tension: 0.6,            // makes it smooth and curvy
       fill: true,
       backgroundColor: 'rgba(93, 202, 165, 0.1)',
-      cubinInterpolationMode: 'monotone'
+      cubicInterpolationMode: 'monotone'
     }]
   },
   options: {
