@@ -38,9 +38,10 @@ const chart = new Chart(ctx, {
       borderColor: '#5DCAA5',
       borderWidth: 2,
       pointRadius: 0,          // no dots on the line
-      tension: 0.4,            // makes it smooth and curvy
+      tension: 0.6,            // makes it smooth and curvy
       fill: true,
-      backgroundColor: 'rgba(93, 202, 165, 0.1)'
+      backgroundColor: 'rgba(93, 202, 165, 0.1)',
+      cubinInterpolationMode: 'monotone'
     }]
   },
   options: {
@@ -78,6 +79,15 @@ const chart = new Chart(ctx, {
 });
 
 // ── Load historical data from GitHub on startup ──
+function smoothData(temps, windowSize = 5) {
+  return temps.map((val, i) => {
+    if (val === null) return null;
+    const window = temps.slice(Math.max(0, i - windowSize), i + windowSize + 1)
+      .filter(v => v !== null);
+    return window.reduce((a, b) => a + b, 0) / window.length;
+  });
+}
+
 async function loadHistoricalData() {
   try {
     const res = await fetch('data.json?t=' + Date.now());
@@ -85,7 +95,8 @@ async function loadHistoricalData() {
 
     const today = new Date().toISOString().split('T')[0];
     if (json.date === today) {
-      json.readings.forEach((temp, i) => {
+      const smoothed = smoothData(json.readings);
+      smoothed.forEach((temp, i) => {
         if (temp !== null) {
           chartData.temps[i] = temp;
         }
