@@ -79,7 +79,7 @@ const chart = new Chart(ctx, {
 });
 
 // ── Load historical data from GitHub on startup ──
-function smoothData(temps, windowSize = 5) {
+function smoothData(temps, windowSize = 15) {
   return temps.map((val, i) => {
     if (val === null) return null;
     const window = temps.slice(Math.max(0, i - windowSize), i + windowSize + 1)
