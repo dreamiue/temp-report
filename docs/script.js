@@ -15,18 +15,9 @@ for (let h = 0; h < 24; h++) {
   }
 }
 
-// Load saved readings from localStorage if they exist
-const savedDate = localStorage.getItem('tempDate');
-const today = new Date().toDateString();
-
-// If saved data is from today, use it — otherwise start fresh
-const savedTemps = savedDate === today
-  ? JSON.parse(localStorage.getItem('tempReadings'))
-  : new Array(1440).fill(null);
-
 const chartData = {
   labels: allLabels,
-  temps: savedTemps || new Array(1440).fill(null)
+  temps: new Array(1440).fill(null)
 };
 
 const chart = new Chart(ctx, {
@@ -155,10 +146,6 @@ client.on('message', (topic, message) => {
     const minuteIndex = now.getHours() * 60 + now.getMinutes();
     chartData.temps[minuteIndex] = data.temp;
     chart.update();
-
-    // Save to localStorage so it survives page refresh
-    localStorage.setItem('tempDate', new Date().toDateString());
-    localStorage.setItem('tempReadings', JSON.stringify(chartData.temps));
   } catch (e) {
     console.error('Could not read message:', e);
   }
