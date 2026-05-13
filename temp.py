@@ -53,6 +53,14 @@ while True:
     # Save to file
     day_data = load_today_data()
     day_data['readings'][minute_index] = round(ambient_temp, 1)
+
+    # Reject readings that jump more than 2°C from the last valid reading
+    last_valid = next((r for r in reversed(day_data['readings'][:minute_index]) if r is not None), None)
+    if last_valid is None or abs(ambient_temp - last_valid) <= 2.0:
+        day_data['readings'][minute_index] = round(ambient_temp, 1)
+    else:
+        print(f"Rejected spike: {ambient_temp:.1f}°C (last was {last_valid:.1f}°C)")
+
     save_data(day_data)
 
     # Publish live via MQTT
