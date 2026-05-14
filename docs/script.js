@@ -68,6 +68,15 @@ const chart = new Chart(ctx, {
   }
 });
 
+function smoothData(temps, windowSize = 15) {
+  return temps.map((val, i) => {
+    if (val === null) return null;
+    const window = temps.slice(Math.max(0, i - windowSize), i + windowSize + 1)
+      .filter(v => v !== null);
+    return window.reduce((a, b) => a + b, 0) / window.length;
+  });
+}
+
 // ── Load historical data from GitHub on startup ──
 async function loadHistoricalData() {
   try {
@@ -76,11 +85,25 @@ async function loadHistoricalData() {
 
     const today = new Date().toISOString().split('T')[0];
     if (json.date === today) {
-      json.readings.forEach((temp, i) => {
+
+      // Fill nulls with the last known value
+      const filled = json.readings.map((val, i, arr) => {
+        if (val !== null) return val;
+        for (let j = i - 1; j >= 0; j--) {
+          if (arr[j] !== null) return arr[j];
+        }
+        return null;
+      });
+
+      // Smooth the filled data
+      const smoothed = smoothData(filled);
+
+      smoothed.forEach((temp, i) => {
         if (temp !== null) {
           chartData.temps[i] = temp;
         }
       });
+
       chart.update();
       console.log('Historical data loaded!');
     }
