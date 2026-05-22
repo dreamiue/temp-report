@@ -89,14 +89,16 @@ async function loadHistoricalData() {
       // Find the last real reading index
       const lastRealIndex = json.readings.reduce((last, val, i) => val !== null ? i : last, -1);
 
-      // Only fill nulls that are BEFORE the last real reading
+      const MAX_GAP = 30; // only fill gaps up to 30 minutes
+
       const filled = json.readings.map((val, i, arr) => {
-        if (i > lastRealIndex) return null;  // after last reading — leave as null
+        if (i > lastRealIndex) return null;
         if (val !== null) return val;
-        for (let j = i - 1; j >= 0; j--) {
+        // Look back up to MAX_GAP minutes for a real reading
+        for (let j = i - 1; j >= Math.max(0, i - MAX_GAP); j--) {
           if (arr[j] !== null) return arr[j];
         }
-        return null;
+        return null; // gap too large — leave as null
       });
 
       // Smooth the filled data
