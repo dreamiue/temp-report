@@ -86,8 +86,12 @@ async function loadHistoricalData() {
     const today = new Date().toISOString().split('T')[0];
     if (json.date === today) {
 
-      // Fill nulls with the last known value
+      // Find the last real reading index
+      const lastRealIndex = json.readings.reduce((last, val, i) => val !== null ? i : last, -1);
+
+      // Only fill nulls that are BEFORE the last real reading
       const filled = json.readings.map((val, i, arr) => {
+        if (i > lastRealIndex) return null;  // after last reading — leave as null
         if (val !== null) return val;
         for (let j = i - 1; j >= 0; j--) {
           if (arr[j] !== null) return arr[j];
