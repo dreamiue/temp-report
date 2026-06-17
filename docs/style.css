@@ -112,6 +112,7 @@ body {
   background: #f2f2f7;
   border-radius: 16px;
   padding: 20px;
+  min-height: 200px;
 }
 
 .chart-label {

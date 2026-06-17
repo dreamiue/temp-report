@@ -111,6 +111,8 @@ async function loadHistoricalData() {
       });
 
       chart.update();
+      chart.resize();
+      chart.update();
       console.log('Historical data loaded!');
     }
   } catch (e) {
