@@ -83,7 +83,8 @@ async function loadHistoricalData() {
     const res = await fetch('data.json?t=' + Date.now());
     const json = await res.json();
 
-    const today = new Date().toISOString().split('T')[0];
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
     if (json.date === today) {
 
       // Find the last real reading index
